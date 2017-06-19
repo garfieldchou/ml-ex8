@@ -44,9 +44,7 @@ J = sum(sum(((X * Theta' - Y).^2)(R==1))) / 2 + lambda * (sum(sum(Theta.^2)) + s
 
 for i = 1:num_movies
     for k = 1:num_features
-        for j = 1:num_users
-            X_grad(i, k) += (Theta(j, :) * X(i, :)' - Y(i, j)) * R(i, j) * Theta(j, k);
-        end
+        X_grad(i, k) = (X(i, :) * Theta' - Y(i, :)) .* R(i, :) * Theta(:, k);
     end
 end
 
