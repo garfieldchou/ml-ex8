@@ -50,9 +50,7 @@ end
 
 for j = 1:num_users
     for k = 1:num_features
-        for i = 1:num_movies
-            Theta_grad(j, k) += (Theta(j, :) * X(i, :)' - Y(i, j)) * R(i, j) * X(i, k);
-        end
+        Theta_grad(j, k) = (Theta(j, :) * X' - Y(:, j)') .* R(:, j)' * X(:, k);
     end
 end
 % =============================================================
