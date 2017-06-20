@@ -43,9 +43,10 @@ Theta_grad = zeros(size(Theta));
 J = sum(sum(((X * Theta' - Y).^2)(R==1))) / 2 + lambda * (sum(sum(Theta.^2)) + sum(sum(X.^2))) / 2;
 
 for i = 1:num_movies
-    for k = 1:num_features
-        X_grad(i, k) = (X(i, :) * Theta' - Y(i, :)) .* R(i, :) * Theta(:, k);
-    end
+    idx = find(R(i, :) ==1);
+    ThetaTemp = Theta(idx, :);
+    YTemp = Y(i, idx);
+    X_grad(i, :) = (X(i, :) * ThetaTemp' - YTemp) * ThetaTemp;
 end
 
 for j = 1:num_users
