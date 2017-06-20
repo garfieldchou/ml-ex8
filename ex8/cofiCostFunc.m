@@ -50,9 +50,10 @@ for i = 1:num_movies
 end
 
 for j = 1:num_users
-    for k = 1:num_features
-        Theta_grad(j, k) = (Theta(j, :) * X' - Y(:, j)') .* R(:, j)' * X(:, k);
-    end
+    idx = find(R(:, j) ==1);
+    XTemp = X(idx, :);  % Select the features corresponding to the movies which were rated by user-j
+    YTemp = Y(idx, j);
+    Theta_grad(j, :) = ( Theta(j, :) * XTemp' - YTemp') * XTemp;
 end
 % =============================================================
 
